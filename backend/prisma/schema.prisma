@@ -1,0 +1,85 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String     @id @default(uuid())
+  email         String     @unique
+  password      String     @unique
+  firstName     String
+  lastName      String
+  photo         String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  events        Event[]
+  orders        Order[]
+  roles         UserRoles[]
+  refreshTokens RefreshToken[] // Add this line to establish relation
+}
+
+model Category {
+  id    String   @id @default(uuid())
+  name  String   @unique
+  events Event[]
+}
+
+model Event {
+  id            String   @id @default(uuid())
+  title         String
+  description   String?
+  location      String?
+  createdAt     DateTime @default(now())
+  imageUrl      String
+  startDateTime DateTime @default(now())
+  endDateTime   DateTime @default(now())
+  price         String
+  isFree        Boolean  @default(false)
+  url           String?
+  categoryId    String
+  organizerId   String
+  category      Category @relation(fields: [categoryId], references: [id])
+  organizer     User     @relation(fields: [organizerId], references: [id])
+  orders        Order[]
+}
+
+model Order {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  stripeId    String   @unique
+  totalAmount String
+  eventId     String
+  buyerId     String
+  event       Event    @relation(fields: [eventId], references: [id])
+  buyer       User     @relation(fields: [buyerId], references: [id])
+}
+
+model Role {
+  id    Int        @id @default(autoincrement())
+  name  String     @unique
+  users UserRoles[]
+}
+
+model UserRoles {
+  userId String
+  roleId Int
+
+  user User @relation(fields: [userId], references: [id])
+  role Role @relation(fields: [roleId], references: [id])
+
+  @@id([userId, roleId])
+}
+
+model RefreshToken {
+  id          String   @id @unique @default(uuid())
+  hashedToken String
+  userId      String
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

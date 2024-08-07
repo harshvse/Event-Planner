@@ -1,0 +1,18 @@
+:root {
+  margin: 0;
+  padding: 0;
+  --primary: #f4d9d0;
+  --secondary: #d9abab;
+  --lightDark: #c75b7a;
+  --dark: #921a40;
+  font-family: "Jetbrains Mono";
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Jetbrains Mono";
+}
+* {
+  font-family: "Jetbrains Mono";
+}

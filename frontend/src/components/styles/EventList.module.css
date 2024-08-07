@@ -1,0 +1,43 @@
+.eventList {
+  background-color: var(--dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.eventList h1 {
+  margin: 0px;
+  padding: 2rem;
+  font-family: "Jetbrains Mono";
+  text-transform: uppercase;
+  color: var(--primary);
+  align-self: flex-start;
+}
+.eventList input {
+  align-self: flex-end;
+  margin: 0px 3rem;
+  padding: 10px 5px;
+  background-color: var(--lightDark);
+  border: 2px solid var(--secondary);
+  border-radius: 10px;
+}
+
+.eventList input::placeholder {
+  color: var(--primary);
+  font-family: "Jetbrains Mono";
+  text-transform: capitalize;
+  padding: 5px;
+}
+.events {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pagination {
+  background-color: var(--primary);
+  margin: 10px 0px 40px 0px;
+  padding: 10px;
+  border-radius: 20px;
+}
