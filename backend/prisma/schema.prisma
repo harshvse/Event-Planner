@@ -19,7 +19,7 @@ model User {
   events        Event[]
   orders        Order[]
   roles         UserRoles[]
-  refreshTokens RefreshToken[] // Add this line to establish relation
+  refreshTokens RefreshToken[]
 }
 
 model Category {
@@ -45,15 +45,16 @@ model Event {
   organizerId   String
   category      Category @relation(fields: [categoryId], references: [id])
   organizer     User     @relation(fields: [organizerId], references: [id])
-  orders        Order[]
+  orders        Order[]  // Relation to Order
 }
 
 model Order {
   id          String   @id @default(uuid())
   createdAt   DateTime @default(now())
-  stripeId    String   @unique
+  stripeId    String   
   totalAmount String
   eventId     String
+  quantity    Int      @default(0)
   buyerId     String
   event       Event    @relation(fields: [eventId], references: [id])
   buyer       User     @relation(fields: [buyerId], references: [id])
@@ -79,7 +80,7 @@ model RefreshToken {
   id          String   @id @unique @default(uuid())
   hashedToken String
   userId      String
-  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   revoked     Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
