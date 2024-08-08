@@ -29,6 +29,27 @@
   text-transform: capitalize;
   padding: 5px;
 }
+.eventHeader {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.eventHeader div {
+  display: flex;
+}
+.eventHeader button {
+  background-color: var(--lightDark);
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.eventHeader button:hover {
+  background-color: var(--secondary);
+}
 .events {
   display: flex;
   flex-wrap: wrap;

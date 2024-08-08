@@ -36,7 +36,7 @@ const App = () => {
             }
           />
           <Route
-            path="/admin"
+            path="/admin/:eventId?"
             element={
               <PrivateRoute roles={["Admin"]}>
                 <Admin />

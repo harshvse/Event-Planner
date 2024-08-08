@@ -16,3 +16,16 @@ html {
 * {
   font-family: "Jetbrains Mono";
 }
+::-webkit-scrollbar {
+  width: 20px;
+  background-color: var(--secondary);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--lightDark);
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--lightDark);
+}

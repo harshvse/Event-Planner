@@ -40,6 +40,7 @@ model Event {
   price         String
   isFree        Boolean  @default(false)
   url           String?
+  isHidden      Boolean  @default(false)
   categoryId    String
   organizerId   String
   category      Category @relation(fields: [categoryId], references: [id])

@@ -14,6 +14,21 @@
   position: relative;
 }
 
+.eventCard::before {
+  content: "";
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(217, 171, 171, 0.7) 0%,
+    rgba(199, 91, 122, 0.5) 50%
+  );
+}
+
 .deleteIcon {
   position: absolute;
   top: -15px;
@@ -28,9 +43,11 @@
   border-radius: 50%;
   color: var(--dark);
   border: 2px solid var(--dark);
+  z-index: 11;
 }
 
 .editIcon {
+  z-index: 11;
   position: absolute;
   top: -15px;
   left: -15px;
