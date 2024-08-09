@@ -9,6 +9,8 @@ import DisabledEventCard from "./DisabledEventCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentEvent, toggleModal } from "../store";
 import Modal from "./Modal";
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import PersonIcon from "@mui/icons-material/Person";
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -53,6 +55,14 @@ const EventList = () => {
     navigate("/admin");
   };
 
+  const handleUserDetails = () => {
+    navigate("/users");
+  };
+
+  const handleViewOrders = () => {
+    navigate("/orders");
+  };
+
   const handleCloseModal = () => {
     dispatch(toggleModal(false));
   };
@@ -62,11 +72,19 @@ const EventList = () => {
       <div className={styles.eventHeader}>
         <h1>Upcoming Events</h1>
         <div>
-          {authUser.roles[0] == "Admin" && (
-            <button onClick={handleCreateNew}>
-              <AddIcon />
-              Add Event
-            </button>
+          <button onClick={handleViewOrders}>
+            <ConfirmationNumberIcon /> View Orders
+          </button>
+          {authUser && authUser.roles[0] == "Admin" && (
+            <>
+              <button onClick={handleUserDetails}>
+                <PersonIcon />
+                User Details
+              </button>
+              <button onClick={handleCreateNew}>
+                <AddIcon /> Add Event
+              </button>
+            </>
           )}
           <input
             type="text"

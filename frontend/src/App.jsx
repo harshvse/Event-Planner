@@ -12,8 +12,13 @@ import PrivateRoute from "./components/PrivateRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import User from "./pages/User";
+import User from "./pages/UserOrder";
 import Admin from "./pages/Admin";
+import Orders from "./pages/Orders";
+import { ToastContainer } from "react-toastify";
+import Users from "./pages/Users";
+import UserOrder from "./pages/UserOrder";
+import RegisterAdmin from "./pages/RegisterAdmin";
 
 const App = () => {
   history.navigate = useNavigate();
@@ -22,16 +27,18 @@ const App = () => {
   return (
     <div>
       <Nav />
+      <ToastContainer />
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/registerAdmin" element={<RegisterAdmin />} />
           <Route
-            path="/user"
+            path="/orders"
             element={
               <PrivateRoute roles={["User", "Admin"]}>
-                <User />
+                <Orders />
               </PrivateRoute>
             }
           />
@@ -40,6 +47,22 @@ const App = () => {
             element={
               <PrivateRoute roles={["Admin"]}>
                 <Admin />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <PrivateRoute roles={["Admin"]}>
+                <Users />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/users/:userId"
+            element={
+              <PrivateRoute roles={["Admin"]}>
+                <UserOrder />
               </PrivateRoute>
             }
           />

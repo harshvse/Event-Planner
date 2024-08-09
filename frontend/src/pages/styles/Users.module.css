@@ -1,0 +1,10 @@
+.users {
+  color: var(--primary);
+  background-color: var(--dark);
+  height: 100vh;
+}
+
+.users h1 {
+  margin: 0;
+  padding: 20px;
+}

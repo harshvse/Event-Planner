@@ -8,7 +8,13 @@ import { fetchWrapper } from "../helpers";
 
 const Nav = () => {
   const [user, setUser] = useState("");
+  const authUser = useSelector((x) => x.auth.user);
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    if (!authUser) {
+      return;
+    }
     const fetchUserData = async () => {
       const userData = await fetchWrapper.get(
         `${import.meta.env.VITE_API_URL}/api/users/profile`
@@ -17,13 +23,12 @@ const Nav = () => {
     };
     fetchUserData();
   }, []);
-
-  const authUser = useSelector((x) => x.auth.user);
-  const dispatch = useDispatch();
+  useEffect(() => {}, [user]);
   const logout = () => dispatch(authActions.logout());
   if (
     window.location.pathname == "/login" ||
-    window.location.pathname == "/register"
+    window.location.pathname == "/register" ||
+    window.location.pathname == "/registerAdmin"
   ) {
     return null;
   }
@@ -46,7 +51,6 @@ const Nav = () => {
               className={styles.greeting}
             >{`Welcome, ${user.firstName} ${user.lastName}`}</p>
           )}
-          <ShoppingCartIcon />
           <button onClick={logout} className="">
             Logout
           </button>

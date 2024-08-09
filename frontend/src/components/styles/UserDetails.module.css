@@ -1,0 +1,38 @@
+.user {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.search {
+  background-color: var(--secondary);
+  border: 2px solid var(--primary);
+  color: var(--dark);
+  height: 30px;
+  margin-right: 40px;
+  border-radius: 10px;
+}
+
+.search::placeholder {
+  color: var(--dark);
+  padding: 10px;
+}
+.datagrid {
+  background-color: var(--primary);
+  columns: var(--dark);
+}
+
+.datagrid div {
+  color: var(--dark);
+}

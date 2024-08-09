@@ -70,3 +70,21 @@
 .information button:hover {
   background-color: var(--dark);
 }
+
+.bookContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--dark);
+  width: 100%;
+}
+.bookContainer input {
+  margin: 0;
+  margin-right: 10px;
+  width: 30px;
+  color: var(--primary);
+  text-align: center;
+}
+.bookContainer button {
+  color: var(--primary);
+}

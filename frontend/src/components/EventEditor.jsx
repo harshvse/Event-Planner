@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { fetchWrapper } from "../helpers";
 import styles from "./styles/EventEditor.module.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EventEditor = () => {
   const { eventId } = useParams();
@@ -75,18 +76,34 @@ const EventEditor = () => {
           `${import.meta.env.VITE_API_URL}/api/events/${eventId}`,
           event
         );
-        console.log("Event updated");
+        toast.success("Event updated successfully");
       } else {
         // Create a new event
         await fetchWrapper.post(
           `${import.meta.env.VITE_API_URL}/api/events/create`,
           event
         );
-        console.log("Event created");
+        toast.success("Event created successfully");
       }
+      // Reset form fields
+      resetForm();
     } catch (error) {
       console.error("Error submitting event:", error);
+      toast.error("Failed to submit event");
     }
+  };
+
+  const resetForm = () => {
+    setTitle("");
+    setDescription("");
+    setLocation("");
+    setImageUrl("");
+    setStartDateTime("");
+    setEndDateTime("");
+    setPrice("");
+    setIsFree(false);
+    setUrl("");
+    setCategoryName("");
   };
 
   return (

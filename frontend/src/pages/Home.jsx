@@ -9,11 +9,9 @@ const Home = () => {
   const { user: authUser } = useSelector((x) => x.auth);
   const { users } = useSelector((x) => x.users);
 
-  useEffect(() => {
-    dispatch(userActions.getAll());
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   dispatch(userActions.getAll());
+  // }, []);
 
   return <EventList />;
 };

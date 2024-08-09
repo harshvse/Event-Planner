@@ -10,6 +10,7 @@ import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchWrapper } from "../helpers";
+import { toast } from "react-toastify";
 
 const DisabledEventCard = ({ event }) => {
   const { user: authUser } = useSelector((x) => x.auth);
@@ -70,8 +71,7 @@ const DisabledEventCard = ({ event }) => {
           {formattedDate}
         </p>
         <div className={styles.buttons}>
-          <button>More Info</button>
-          <button>Add to Cart</button>
+          <button>Book Now</button>
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchWrapper } from "../helpers";
 import { setCurrentEvent, toggleModal } from "../store"; // Update with your actual path
+import { toast } from "react-toastify";
 
 const EventCard = ({ event }) => {
   const dispatch = useDispatch();
@@ -76,7 +77,6 @@ const EventCard = ({ event }) => {
         </p>
         <div className={styles.buttons}>
           <button onClick={handleMoreInfo}>More Info</button>
-          <button>Add to Cart</button>
         </div>
       </div>
     </div>

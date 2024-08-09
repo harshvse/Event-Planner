@@ -21,8 +21,8 @@ const router = express.Router();
 
 router.post("/register", async (req, res, next) => {
   try {
-    const { email, password, firstName, lastName, photo, role } = req.body;
-    if (!email || !password || !firstName || !lastName || !role) {
+    const { email, password, firstName, lastName, photo } = req.body;
+    if (!email || !password || !firstName || !lastName) {
       console.log(req.body);
       res.status(400);
       throw new Error("You must provide all required fields.");
@@ -42,7 +42,7 @@ router.post("/register", async (req, res, next) => {
       photo,
     });
 
-    await assignRoleToUser(user.id, role);
+    await assignRoleToUser(user.id, "User");
 
     // Fetch the user again to include roles
     const newUser = await findUserById(user.id);
@@ -54,7 +54,49 @@ router.post("/register", async (req, res, next) => {
     res.json({
       accessToken,
       refreshToken,
-      roles: [role],
+      roles: ["User"],
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/registerAdmin", async (req, res, next) => {
+  try {
+    const { email, password, firstName, lastName, photo } = req.body;
+    if (!email || !password || !firstName || !lastName) {
+      console.log(req.body);
+      res.status(400);
+      throw new Error("You must provide all required fields.");
+    }
+
+    const existingUser = await findUserByEmail(email);
+    if (existingUser) {
+      res.status(400);
+      throw new Error("Email already in use.");
+    }
+
+    const user = await createUserByEmailAndPassword({
+      email,
+      password,
+      firstName,
+      lastName,
+      photo,
+    });
+
+    await assignRoleToUser(user.id, "Admin");
+
+    // Fetch the user again to include roles
+    const newUser = await findUserById(user.id);
+
+    const jti = uuidv4();
+    const { accessToken, refreshToken } = generateTokens(newUser, jti);
+    await addRefreshTokenToWhitelist({ jti, refreshToken, userId: newUser.id });
+
+    res.json({
+      accessToken,
+      refreshToken,
+      roles: ["Admin"],
     });
   } catch (err) {
     next(err);
